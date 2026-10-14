@@ -4,7 +4,7 @@
 
 Use an AI agent to play Beyblade and become a stronger player.
 
-**Project page:** https://teddashh.github.io/zhan-dou-tuo-luo/
+**Project page:** https://ted-h-com.github.io/zhan-dou-tuo-luo/
 
 This repository turns several AI Sister discussions about Beyblade X (戰鬥陀螺, battle tops) into notes in Traditional Chinese. The core idea is simple: do not just ask "which top is strongest?" Ask "under the current rules, how do I use three tops to score points most efficiently?"
 

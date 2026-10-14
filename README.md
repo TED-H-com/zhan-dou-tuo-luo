@@ -4,7 +4,7 @@
 
 靠著 AI Agent 打陀螺，讓你成為最強的陀螺高手。
 
-**專案介紹頁：** https://teddashh.github.io/zhan-dou-tuo-luo/?lang=zh-TW
+**專案介紹頁：** https://ted-h-com.github.io/zhan-dou-tuo-luo/?lang=zh-TW
 
 這個 repo 把 AI Sister 上幾篇關於戰鬥陀螺 / Beyblade X 的討論整理成中文筆記。核心觀念很簡單：不要只問「哪一顆最強」，要問「在現在的規則下，怎麼用三顆陀螺把分數拿得最有效率」。
 

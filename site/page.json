@@ -1,5 +1,5 @@
 {
-  "repo": "teddashh/zhan-dou-tuo-luo",
+  "repo": "TED-H-com/zhan-dou-tuo-luo",
   "slug": "zhan-dou-tuo-luo",
   "name": "zhan-dou-tuo-luo",
   "mark": "BX",
@@ -43,7 +43,7 @@
       }
     },
     "secondary": {
-      "href": "https://github.com/teddashh/zhan-dou-tuo-luo/tree/main/docs",
+      "href": "https://github.com/TED-H-com/zhan-dou-tuo-luo/tree/main/docs",
       "label": {
         "en": "Read the notes on GitHub",
         "zh": "在 GitHub 閱讀筆記"
@@ -219,14 +219,14 @@
       "zh": "閱讀順序"
     },
     "primary": {
-      "href": "https://github.com/teddashh/zhan-dou-tuo-luo/tree/main/docs",
+      "href": "https://github.com/TED-H-com/zhan-dou-tuo-luo/tree/main/docs",
       "label": {
         "en": "Open docs/",
         "zh": "打開 docs/"
       }
     },
     "secondary": {
-      "href": "https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/README.en.md",
+      "href": "https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/README.en.md",
       "label": {
         "en": "English summary",
         "zh": "英文摘要"
@@ -239,8 +239,8 @@
           "zh": "論壇原題：戰鬥陀螺最強版本比較與勝率最高戰術分享"
         },
         "body": {
-          "en": "Why “strongest” depends on the format, and three questions to ask first. <a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/01-forum-248.md\">Note</a> · <a href=\"https://ai-sister.com/en/forum/post/248\">Source</a>",
-          "zh": "為什麼「最強」要放進賽制看，以及問之前先想的三件事。<a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/01-forum-248.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/forum/post/248\">原文</a>"
+          "en": "Why “strongest” depends on the format, and three questions to ask first. <a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/01-forum-248.md\">Note</a> · <a href=\"https://ai-sister.com/en/forum/post/248\">Source</a>",
+          "zh": "為什麼「最強」要放進賽制看，以及問之前先想的三件事。<a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/01-forum-248.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/forum/post/248\">原文</a>"
         }
       },
       {
@@ -249,8 +249,8 @@
           "zh": "轉最久的不一定最強：分數帳才是勝率核心"
         },
         "body": {
-          "en": "Point values, why the post picks Wizard Rod 3-60 Ball as the first top to invest in, and the center-control tactic. <a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/02-blog-602.md\">Note</a> · <a href=\"https://ai-sister.com/en/blog/602\">Source</a>",
-          "zh": "各種勝利的分數、原文為什麼偏向把 Wizard Rod 3-60 Ball 當第一顆主力，以及中心控盤戰術。<a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/02-blog-602.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/blog/602\">原文</a>"
+          "en": "Point values, why the post picks Wizard Rod 3-60 Ball as the first top to invest in, and the center-control tactic. <a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/02-blog-602.md\">Note</a> · <a href=\"https://ai-sister.com/en/blog/602\">Source</a>",
+          "zh": "各種勝利的分數、原文為什麼偏向把 Wizard Rod 3-60 Ball 當第一顆主力，以及中心控盤戰術。<a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/02-blog-602.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/blog/602\">原文</a>"
         }
       },
       {
@@ -259,8 +259,8 @@
           "zh": "撞最兇不一定最帥：零用錢也要算牌組"
         },
         "body": {
-          "en": "The same idea for parents and beginners: read the rules first, build a 3v3 that works, then upgrade parts. <a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/03-blog-603.md\">Note</a> · <a href=\"https://ai-sister.com/en/blog/603\">Source</a>",
-          "zh": "用家長和新手的角度講同一件事：先讀規則、先組一套能用的 3v3，再慢慢升級零件。<a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/03-blog-603.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/blog/603\">原文</a>"
+          "en": "The same idea for parents and beginners: read the rules first, build a 3v3 that works, then upgrade parts. <a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/03-blog-603.md\">Note</a> · <a href=\"https://ai-sister.com/en/blog/603\">Source</a>",
+          "zh": "用家長和新手的角度講同一件事：先讀規則、先組一套能用的 3v3，再慢慢升級零件。<a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/03-blog-603.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/blog/603\">原文</a>"
         }
       },
       {
@@ -269,8 +269,8 @@
           "zh": "勝負的匯率：把陀螺當成資源配置"
         },
         "body": {
-          "en": "Each kind of finish pays a different rate; attack, defense, and closer cards each earn a different kind of point. <a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/04-blog-604.md\">Note</a> · <a href=\"https://ai-sister.com/en/blog/604\">Source</a>",
-          "zh": "不同勝利方式有不同報酬，攻擊牌、防守牌、收尾牌各自負責賺不同的分數。<a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/04-blog-604.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/blog/604\">原文</a>"
+          "en": "Each kind of finish pays a different rate; attack, defense, and closer cards each earn a different kind of point. <a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/04-blog-604.md\">Note</a> · <a href=\"https://ai-sister.com/en/blog/604\">Source</a>",
+          "zh": "不同勝利方式有不同報酬，攻擊牌、防守牌、收尾牌各自負責賺不同的分數。<a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/04-blog-604.md\">筆記</a> · <a href=\"https://ai-sister.com/zh-TW/blog/604\">原文</a>"
         }
       },
       {
@@ -279,8 +279,8 @@
           "zh": "推薦型號與 3v3 牌組配置"
         },
         "body": {
-          "en": "Starter picks by role, three sample decks, spring 2026 meta notes, and Japanese versus US versions. <a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/recommended-models.md\">Note</a>",
-          "zh": "依角色推薦的新手型號、三套牌組範例、2026 春季 meta 觀察，以及日版與美版的差別。<a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/recommended-models.md\">筆記</a>"
+          "en": "Starter picks by role, three sample decks, spring 2026 meta notes, and Japanese versus US versions. <a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/recommended-models.md\">Note</a>",
+          "zh": "依角色推薦的新手型號、三套牌組範例、2026 春季 meta 觀察，以及日版與美版的差別。<a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/recommended-models.md\">筆記</a>"
         }
       },
       {
@@ -289,8 +289,8 @@
           "zh": "實戰技巧與訓練菜單"
         },
         "body": {
-          "en": "Flat, angled, and power-controlled launches, a 20-minute daily routine, a pre-match checklist, and a post-match review template. <a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/techniques.md\">Note</a>",
-          "zh": "平射、斜射、弱射控力，20 分鐘日常訓練、賽前檢查表與賽後復盤模板。<a href=\"https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/docs/techniques.md\">筆記</a>"
+          "en": "Flat, angled, and power-controlled launches, a 20-minute daily routine, a pre-match checklist, and a post-match review template. <a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/techniques.md\">Note</a>",
+          "zh": "平射、斜射、弱射控力，20 分鐘日常訓練、賽前檢查表與賽後復盤模板。<a href=\"https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/docs/techniques.md\">筆記</a>"
         }
       }
     ]
@@ -400,7 +400,7 @@
   ],
   "links": [
     {
-      "href": "https://github.com/teddashh/zhan-dou-tuo-luo/blob/main/README.en.md",
+      "href": "https://github.com/TED-H-com/zhan-dou-tuo-luo/blob/main/README.en.md",
       "label": {
         "en": "English README",
         "zh": "英文 README"
