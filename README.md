@@ -20,6 +20,7 @@ Beyblade X 不是單純比誰轉最久。自旋勝利通常只拿 1 分，撞出
 - [勝負的匯率：把陀螺當成資源配置](docs/04-blog-604.md)
 - [推薦型號與 3v3 牌組配置](docs/recommended-models.md)
 - [實戰技巧與訓練菜單](docs/techniques.md)
+- [戰鬥陀螺物理與碰撞模擬指南](docs/physics-simulation.md)
 
 ## 新手購買順序
 
