@@ -1,4 +1,10 @@
-/* Runs synchronously in <head> so the chosen language paints first (no flash). */
+/**
+ * @fileoverview
+ * Script to determine and set the appropriate language for the site synchronously
+ * on load to avoid a flash of the wrong language.
+ *
+ * Runs synchronously in <head> so the chosen language paints first (no flash).
+ */
 (function () {
   var root = document.documentElement;
   function norm(value) {

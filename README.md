@@ -21,6 +21,7 @@ Beyblade X 不是單純比誰轉最久。自旋勝利通常只拿 1 分，撞出
 - [推薦型號與 3v3 牌組配置](docs/recommended-models.md)
 - [實戰技巧與訓練菜單](docs/techniques.md)
 - [戰鬥陀螺物理與碰撞模擬指南](docs/physics-simulation.md)
+- [API 參考文件與開發者指南](docs/api-reference.md)
 
 ## 新手購買順序
 
@@ -54,6 +55,19 @@ Beyblade X 的環境會變。新零件、官方禁用表、店家規則、地區
 - https://ai-sister.com/zh-TW/blog/604
 - https://ai-sister.com/zh-TW/blog/603
 - https://ai-sister.com/zh-TW/blog/602
+
+## 開發指南 (Developer Guide)
+
+本專案結構如下：
+- `docs/`: 存放各項分析與策略筆記（Markdown 格式）。
+- `site/`: 靜態網站的前端原始碼，包含主要邏輯與呈現（HTML, CSS, JS）。
+- `tests/`: 測試靜態網頁行為的測試案例。
+
+你可以透過內建的 Node.js 測試框架來執行測試：
+
+```bash
+node --test tests/*.test.js
+```
 
 ## 授權
 
