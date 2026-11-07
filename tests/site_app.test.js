@@ -139,3 +139,162 @@ describe('site/app.js script', () => {
     assert.strictEqual(yearEl.textContent, String(new Date().getFullYear()));
   });
 });
+
+describe('site/app.js DOM interactions', () => {
+  it('should copy text to clipboard when copy button is clicked', async () => {
+    const fs = require('fs');
+    const vm = require('vm');
+    const appCode = fs.readFileSync('site/app.js', 'utf8');
+
+    class MockElement {
+      constructor() {
+        this.attributes = {};
+        this.classList = {
+          classes: new Set(),
+          add(cls) { this.classes.add(cls); },
+          remove(cls) { this.classes.delete(cls); }
+        };
+        this.listeners = {};
+        this.textContent = '';
+        this.innerText = '';
+      }
+      setAttribute(name, value) { this.attributes[name] = value; }
+      getAttribute(name) { return this.attributes[name] || null; }
+      addEventListener(event, handler) { this.listeners[event] = handler; }
+    }
+
+    const root = new MockElement();
+    const copyBtn = new MockElement();
+    copyBtn.setAttribute('data-copy', 'target-id');
+    const targetEl = new MockElement();
+    targetEl.innerText = 'Text to copy\n';
+
+    const doc = {
+      documentElement: root,
+      title: '',
+      querySelector() { return null; },
+      querySelectorAll(sel) {
+        if (sel === '[data-copy]') return [copyBtn];
+        return [];
+      },
+      getElementById(id) {
+        if (id === 'target-id') return targetEl;
+        return null;
+      },
+      addEventListener() {}
+    };
+
+    let writtenText = '';
+    let timeoutCb = null;
+
+    const env = {
+      document: doc,
+      window: {
+        localStorage: { setItem() {} },
+        history: { replaceState() {} },
+        location: { href: 'http://localhost' }
+      },
+      navigator: {
+        clipboard: {
+          writeText: (text) => {
+            writtenText = text;
+            return { then: (cb) => { cb(); return Promise.resolve(); } };
+          }
+        }
+      },
+      setTimeout: (fn, delay) => { timeoutCb = fn; },
+      Date
+    };
+
+    vm.runInNewContext(appCode, env);
+
+    copyBtn.listeners.click();
+    assert.ok(copyBtn.classList.classes.has('is-done'));
+    assert.strictEqual(writtenText, 'Text to copy');
+
+    if (timeoutCb) timeoutCb();
+    assert.ok(!copyBtn.classList.classes.has('is-done'));
+  });
+
+  it('should handle word boundaries correctly with Intl.Segmenter', () => {
+    const fs = require('fs');
+    const vm = require('vm');
+    const appCode = fs.readFileSync('site/app.js', 'utf8');
+
+    class MockElement {
+      constructor(data = '') {
+        this.nodeType = 1;
+        this.data = data;
+        this.parentNode = { replaceChild(newChild, oldChild) { } };
+        this.attributes = {};
+        this.listeners = {};
+      }
+      setAttribute(name, value) { this.attributes[name] = value; }
+      getAttribute(name) { return this.attributes[name] || null; }
+      addEventListener(event, handler) { this.listeners[event] = handler; }
+    }
+
+    const root = new MockElement();
+    const headingEl = new MockElement();
+
+    const doc = {
+      documentElement: root,
+      title: '',
+      querySelector() { return null; },
+      querySelectorAll(sel) {
+        if (sel.includes('h1[lang^="zh"]')) return [headingEl];
+        return [];
+      },
+      createTreeWalker(root, show) {
+        let count = 0;
+        return {
+          nextNode() {
+            count++;
+            return count === 1 ? { nodeType: 3, data: '測試中文', parentNode: headingEl.parentNode } : null;
+          },
+          currentNode: { nodeType: 3, data: '測試中文', parentNode: headingEl.parentNode }
+        };
+      },
+      createDocumentFragment() {
+        return { appendChild(child) {} };
+      },
+      createElement(tag) {
+        return { nodeName: tag };
+      },
+      createTextNode(text) {
+        return { data: text };
+      },
+      getElementById() { return null; },
+      addEventListener() {}
+    };
+
+    const env = {
+      document: doc,
+      window: {
+        localStorage: { setItem() {} },
+        history: { replaceState() {} },
+        location: { href: 'http://localhost' },
+        Intl: {
+          Segmenter: class {
+            constructor() {}
+            segment(text) {
+              return [
+                { segment: '測' },
+                { segment: '試' },
+                { segment: '中' },
+                { segment: '文' }
+              ];
+            }
+          }
+        }
+      },
+      navigator: { languages: ['en'] },
+      setTimeout: (fn, delay) => { fn(); },
+      Date,
+      NodeFilter: { SHOW_TEXT: 4 }
+    };
+
+    vm.runInNewContext(appCode, env);
+    assert.ok(true);
+  });
+});
