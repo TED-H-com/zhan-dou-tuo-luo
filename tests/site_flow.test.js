@@ -165,6 +165,26 @@ describe('site/flow.js module', () => {
     assert.ok(p.boxes.length > 0);
   });
 
+  it('plan with wide span forcing resize', () => {
+    const spec = {
+      columns: [[0]],
+      sinks: [1, 2, 3, 4, 5, 6],
+      lanes: ['Lane'],
+      core: 0
+    };
+    const titles = ['0', '1', '2', '3', '4', '5', '6'];
+    const notes = ['', '', '', '', '', '', ''];
+    const tones = ['neutral', 'neutral', 'neutral', 'neutral', 'neutral', 'neutral', 'neutral'];
+    const p = TedFlow.plan(spec, titles, notes, tones);
+    assert.ok(p.boxes.length > 0);
+  });
+
+  it('statusVisible local opacity bounds', () => {
+    const { fade, hold, out, gap } = TedFlow.STATUS;
+    assert.strictEqual(TedFlow.statusAt(fade + hold / 2, 2).opacity, 1);
+    assert.ok(TedFlow.statusAt(fade + hold + out / 2, 2).opacity < 1);
+  });
+
   it('draw with error path', () => {
     const mockFig = {
       nodeType: 1,
@@ -176,18 +196,158 @@ describe('site/flow.js module', () => {
     TedFlow.render(mockFig);
   });
 
+  it('draw rendering and animation iterations', () => {
+    let mockReqAF;
+    global.requestAnimationFrame = (fn) => { mockReqAF = fn; };
+
+    const mockScope = {
+      nodeType: 1,
+      getAttribute(name) {
+        if (name === 'data-fd') return JSON.stringify({ columns: [[0]], core: 0, tickCount: 2 });
+        return null;
+      },
+      querySelectorAll(sel) {
+        if (sel === ':scope > .fd-svg') {
+          return [{
+            style: { display: '' },
+            querySelector(s) {
+              if (s === '.fd-tick') return {
+                addEventListener(e, cb) {
+                  this.cb = cb;
+                }
+              };
+              return null;
+            },
+            remove() {}
+          }];
+        }
+        return [];
+      },
+      querySelector(sel) {
+        if (sel === ':scope > .fd-status') return {
+          addEventListener(e, cb) {
+            this.cb = cb;
+          },
+          textContent: ''
+        };
+        if (sel === ':scope > .fd-svg') return {
+          style: { display: '' },
+          querySelector(s) {
+            if (s === '.fd-tick') return {
+              addEventListener(e, cb) { this.cb = cb; }
+            };
+            return null;
+          },
+          remove() {}
+        };
+        return null;
+      },
+      addEventListener() {},
+      textContent: '',
+      parentNode: { insertBefore() {}, removeChild() {} },
+      appendChild() {},
+      getBoundingClientRect() { return { top: 0, left: 0, width: 0, height: 0 }; },
+      classList: { add() {}, toggle() {} },
+      getAnimations() {
+        return [{
+          currentTime: 0,
+          pause() { throw new Error('Simulated DOMException from pause()'); }
+        }];
+      },
+      insertBefore() {}
+    };
+
+    global.IntersectionObserver = class {
+      constructor(cb) { this.cb = cb; }
+      observe(el) {
+        this.cb([{ isIntersecting: true }]);
+        this.cb([{ isIntersecting: false }]);
+      }
+    };
+
+    try {
+      global.document = {
+        createElementNS(ns, tag) {
+          return {
+            setAttribute() {},
+            appendChild() {},
+            classList: { add() {} }
+          };
+        },
+        createElement(tag) {
+          return {
+            setAttribute() {},
+            textContent: '',
+            addEventListener() {}
+          };
+        }
+      };
+
+      TedFlow.render(mockScope);
+
+      // Trigger animation iterations
+      const svg = mockScope.querySelectorAll(':scope > .fd-svg')[0];
+      const tick = svg.querySelector('.fd-tick');
+      if (tick && tick.cb) {
+        tick.cb({ animationName: 'fd-tick', target: tick });
+      }
+
+      if (mockReqAF) mockReqAF();
+
+    } finally {
+      delete global.IntersectionObserver;
+      delete global.requestAnimationFrame;
+      delete global.document;
+    }
+  });
+
   it('avoidLone / edge cases', () => {
     const wrapped = TedFlow.wrap("測試 lone word wrapper with some extremelylongunbreakabletext", 10, 20);
     assert.ok(wrapped.length > 0);
     const mark = TedFlow.wrap("測試，", 10, 20);
     assert.ok(mark.length > 0);
+
+    // Additional wrap tests to hit specific avoidLone edge cases
+    const multiLine = TedFlow.wrap("A\nB\nC", 10, 20);
+    assert.deepStrictEqual(multiLine, ["A", "B", "C"]);
+
+    const loneWide = TedFlow.wrap("This is a test 中", 10, 20);
+    assert.ok(loneWide.length > 0);
+
+    const pullClosing = TedFlow.wrap("This is a test 。", 10, 10);
+    assert.ok(pullClosing.length > 0);
+
+    const manyLines = TedFlow.wrap("This is a long sentence that should definitely wrap multiple times to test greedy algorithm", 5, 10);
+    assert.ok(manyLines.length > 0);
   });
 
-  it('frozenAt logic', () => {
+  it('boot and frozenAt logic', () => {
     const mockScope = {
-      querySelectorAll(sel) { return sel === 'figure.fd' ? [{ nodeType: 1, getAttribute(){return null;} }] : []; }
+      querySelectorAll(sel) { return sel === 'figure.fd' ? [{ nodeType: 1, getAttribute(){return null;} }] : []; },
+      document: {
+        readyState: 'loading',
+        addEventListener(event, fn) {
+          if (event === 'DOMContentLoaded') {
+            fn();
+          }
+        },
+        querySelectorAll(sel) { return sel === 'figure.fd' ? [] : []; }
+      }
     };
     TedFlow.renderAll(mockScope);
+
+    // Mock requiring flow.js into a DOM-like environment to trigger boot
+    const fs = require('fs');
+    const vm = require('vm');
+    const flowCode = fs.readFileSync('site/flow.js', 'utf8');
+    const doc = {
+      readyState: 'loading',
+      addEventListener(event, fn) {
+        if (event === 'DOMContentLoaded') fn();
+      },
+      querySelectorAll() { return []; }
+    };
+    vm.runInNewContext(flowCode, { window: { document: doc } });
   });
 
   it('frozenAt logic when param present', () => {
