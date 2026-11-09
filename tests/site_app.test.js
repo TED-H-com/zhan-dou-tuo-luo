@@ -38,8 +38,9 @@ function createEnv() {
   const description = new MockElement();
   const menuBtn = new MockElement();
   const nav = new MockElement();
+  const navLink = new MockElement();
   nav.querySelectorAll = (sel) => {
-    if (sel === 'a') return [new MockElement()];
+    if (sel === 'a') return [navLink];
     return [];
   };
   const langBtn = new MockElement();
@@ -94,7 +95,7 @@ function createEnv() {
     }
   };
 
-  return { env, root, menuBtn, nav, langBtn, doc, yearEl };
+  return { env, root, menuBtn, nav, navLink, langBtn, doc, yearEl };
 }
 
 describe('site/app.js script', () => {
@@ -111,6 +112,18 @@ describe('site/app.js script', () => {
     assert.ok(!nav.classList.contains('is-open'));
   });
 
+  it('should close mobile menu on nav link click', () => {
+    const { env, menuBtn, nav, navLink } = createEnv();
+    vm.runInNewContext(appCode, env);
+
+    menuBtn.listeners.click();
+    assert.ok(nav.classList.contains('is-open'));
+
+    navLink.listeners.click();
+    assert.strictEqual(menuBtn.getAttribute('aria-expanded'), 'false');
+    assert.ok(!nav.classList.contains('is-open'));
+  });
+
   it('should close mobile menu on Escape key', () => {
     const { env, menuBtn, nav, doc } = createEnv();
     vm.runInNewContext(appCode, env);
@@ -122,7 +135,7 @@ describe('site/app.js script', () => {
   });
 
   it('should update lang on root when language button is clicked', () => {
-    const { env, root, langBtn } = createEnv();
+    const { env, root, langBtn, nav } = createEnv();
     vm.runInNewContext(appCode, env);
 
     assert.strictEqual(root.getAttribute('data-lang'), 'en');
@@ -130,6 +143,10 @@ describe('site/app.js script', () => {
     langBtn.listeners.click();
     assert.strictEqual(root.getAttribute('data-lang'), 'zh');
     assert.strictEqual(root.lang, 'zh-Hant');
+    assert.strictEqual(langBtn.getAttribute('aria-pressed'), 'true');
+
+    nav.classList.toggle('is-open');
+    assert.strictEqual(nav.classList.contains('is-open'), true);
   });
 
   it('should set year to current year', () => {
@@ -179,7 +196,7 @@ describe('site/app.js DOM interactions', () => {
       },
       getElementById(id) {
         if (id === 'target-id') return targetEl;
-        return null;
+        return new MockElement();
       },
       addEventListener() {}
     };
@@ -264,7 +281,7 @@ describe('site/app.js DOM interactions', () => {
       createTextNode(text) {
         return { data: text };
       },
-      getElementById() { return null; },
+      getElementById() { return new MockElement(); },
       addEventListener() {}
     };
 
@@ -278,12 +295,15 @@ describe('site/app.js DOM interactions', () => {
           Segmenter: class {
             constructor() {}
             segment(text) {
-              return [
-                { segment: '測' },
-                { segment: '試' },
-                { segment: '中' },
-                { segment: '文' }
-              ];
+              if (text === '測試中文') {
+                return [
+                  { segment: '測' },
+                  { segment: '試' },
+                  { segment: '中' },
+                  { segment: '文' }
+                ];
+              }
+              return [{ segment: text }];
             }
           }
         }
