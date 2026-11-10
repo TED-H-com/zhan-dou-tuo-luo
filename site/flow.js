@@ -1,7 +1,10 @@
-/* Flow diagrams for the project-page kit.
-   Reads each figure.fd, draws an aria-hidden schematic above its legend, and
-   cycles one status line at a time. Layout uses a width estimate, never measured
-   text, so a figure hidden by a language switch still lays out. */
+/**
+ * @fileoverview
+ * Flow diagrams for the project-page kit.
+ * Reads each figure.fd, draws an aria-hidden schematic above its legend, and
+ * cycles one status line at a time. Layout uses a width estimate, never measured
+ * text, so a figure hidden by a language switch still lays out.
+ */
 (function (root, factory) {
   "use strict";
   var api = factory();

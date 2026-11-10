@@ -58,6 +58,19 @@ AI Sister posts, each with its original Chinese version and an English version:
 - Blog post 603: https://ai-sister.com/zh-TW/blog/603 (English: https://ai-sister.com/en/blog/603)
 - Blog post 602: https://ai-sister.com/zh-TW/blog/602 (English: https://ai-sister.com/en/blog/602)
 
+## Developer Guide
+
+The project is structured as follows:
+- `docs/`: Contains notes on strategies and analysis (Markdown).
+- `site/`: Source code for the frontend static site, handling rendering and interactions (HTML, CSS, JS).
+- `tests/`: Test cases verifying the behavior of the static site.
+
+You can run the tests using the native Node.js test runner:
+
+```bash
+node --test tests/*.test.js
+```
+
 ## License
 
 The notes are licensed under [CC BY 4.0](LICENSE): you may share and adapt them, including for commercial use, as long as you give credit. The project page under `site/` is generated with the MIT-licensed page kit from [teddashh.github.io](https://github.com/teddashh/teddashh.github.io).

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview
+ * Main application script for the static site. Handles UI interactions
+ * such as toggling the mobile menu, switching languages, and copying text
+ * to the clipboard.
+ */
 (function () {
   "use strict";
   var root = document.documentElement;
