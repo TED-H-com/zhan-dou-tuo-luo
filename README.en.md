@@ -23,6 +23,13 @@ Beyblade X is not just about which top spins the longest. A Spin Finish usually 
 - [Recommended models and 3v3 deck setups](docs/recommended-models.md)
 - [Techniques and practice routine](docs/techniques.md)
 
+## Developer and Contributor Guides
+
+If you would like to contribute code or understand the project architecture, please see the following (in Traditional Chinese):
+
+- [API Reference](docs/api-reference.md)
+- [Developer Usage Guide](docs/developer-usage.md)
+
 ## Buying order for beginners
 
 1. Start with the Takara Tomy / Japanese system. For serious competition, its weights, part adjustability, and mainstream meta are closer to what you will face.

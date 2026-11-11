@@ -22,6 +22,13 @@ Beyblade X 不是單純比誰轉最久。自旋勝利通常只拿 1 分，撞出
 - [實戰技巧與訓練菜單](docs/techniques.md)
 - [戰鬥陀螺物理與碰撞模擬指南](docs/physics-simulation.md)
 
+## 開發者與貢獻者指南
+
+若您想貢獻程式碼或了解專案架構，請參考以下文件：
+
+- [API 參考文獻 (API Reference)](docs/api-reference.md)
+- [開發者與使用指南 (Developer Usage Guide)](docs/developer-usage.md)
+
 ## 新手購買順序
 
 1. 先買 Takara Tomy / 日版系統，認真打比賽時重量、零件可調性和主流環境比較接近。
