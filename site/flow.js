@@ -25,8 +25,8 @@
   /* Fade fully out, then a short gap, then the next line fades in. */
   var STATUS = { fade: 280, hold: 1760, out: 280, gap: 160 };
 
-  var WIDE = /[ᄀ-ᅟ⺀-〿぀-㏿㐀-䶿一-鿿ꀀ-꓏가-힣豈-﫿︰-﹏＀-｠￠-￦]/u;
-  var NO_LINE_START = /^[、。，．,.：:；;？?！!‥…・ー〜～%％）〕］｝〉》」』】〙〗｣»ぁぃぅぇぉっゃゅょゎゕゖァィゥェォッャュョヮヵヶ々ゝゞヽヾ]/u;
+  var WIDE = /[ᄀ-ᅟ⺀-〿぀-㏿㐀-䶿一-鿿ꀀ-꓏가-힣豈-﫿︰-﹏＀-｠￠-￦]/;
+  var NO_LINE_START = /^[、。，．,.：:；;？?！!‥…・ー〜～%％）〕］｝〉》」』】〙〗｣»ぁぃぅぇぉっゃゅょゎゕゖァィゥェォッャュョヮヵヶ々ゝゞヽヾ]/;
 
   var ICONS = {
     chat: '<path d="M5 5.2h14.2v9.2H9.4L5.4 18v-3.6H5z"/><path d="M8.2 8.8h8M8.2 11.6h5.2"/>',
@@ -68,17 +68,53 @@
 
   function advance(text, size) {
     var total = 0;
-    var glyph;
-    for (glyph of String(text)) total += /\s/u.test(glyph) ? size * 0.28 : WIDE.test(glyph) ? size : size * 0.56;
+    var strText = String(text);
+    var len = strText.length;
+    var s = size * 0.28;
+    var n = size * 0.56;
+    var w = size;
+
+    var i;
+    for (i = 0; i < len; i += 1) {
+      var charCode = strText.charCodeAt(i);
+      if (charCode < 128) {
+        if (charCode === 32 || charCode === 10 || charCode === 9 || charCode === 13) {
+          total += s;
+        } else {
+          total += n;
+        }
+      } else {
+        var glyph = strText.charAt(i);
+        if (charCode >= 0xD800 && charCode <= 0xDBFF && i + 1 < len) {
+          glyph += strText.charAt(i + 1);
+          i += 1;
+        }
+        if (/\s/.test(glyph)) {
+          total += s;
+        } else if (WIDE.test(glyph)) {
+          total += w;
+        } else {
+          total += n;
+        }
+      }
+    }
     return total;
   }
 
   function tokenise(text) {
     var out = [];
     var latin = "";
-    var glyph;
-    for (glyph of String(text)) {
-      if (!WIDE.test(glyph) && !/\s/u.test(glyph)) { latin += glyph; continue; }
+    var strText = String(text);
+    var len = strText.length;
+    var i;
+    for (i = 0; i < len; i += 1) {
+      var charCode = strText.charCodeAt(i);
+      var glyph = strText.charAt(i);
+      if (charCode >= 0xD800 && charCode <= 0xDBFF && i + 1 < len) {
+        glyph += strText.charAt(i + 1);
+        i += 1;
+      }
+      if (!WIDE.test(glyph) && !/\s/.test(glyph)) { latin += glyph; continue; }
       if (latin) { out.push(latin); latin = ""; }
       out.push(glyph);
     }
@@ -89,22 +125,30 @@
   function greedy(tokens, size, budget) {
     var lines = [];
     var line = [];
-    var token;
-    for (token of tokens) {
-      if (!line.length && /\s/u.test(token)) continue;
-      if (line.length && advance(line.concat(token).join(""), size) > budget) {
-        while (line.length && /\s/u.test(line[line.length - 1])) line.pop();
+    var currentAdvance = 0;
+    var i;
+    for (i = 0; i < tokens.length; i += 1) {
+      var token = tokens[i];
+      if (!line.length && /\s/.test(token)) continue;
+
+      var tokenAdvance = advance(token, size);
+      if (line.length && currentAdvance + tokenAdvance > budget) {
+        while (line.length && /\s/.test(line[line.length - 1])) {
+          currentAdvance -= advance(line.pop(), size);
+        }
         if (line.length) lines.push(line);
-        line = /\s/u.test(token) ? [] : [token];
+        line = /\s/.test(token) ? [] : [token];
+        currentAdvance = line.length ? tokenAdvance : 0;
         continue;
       }
       line.push(token);
+      currentAdvance += tokenAdvance;
     }
     if (line.length) lines.push(line);
     return lines;
   }
 
-  function isSpace(token) { return /\s/u.test(token); }
+  function isSpace(token) { return /\s/.test(token); }
 
   function nonSpaceCount(row) {
     var count = 0;
